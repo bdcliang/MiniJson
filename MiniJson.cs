@@ -105,7 +105,15 @@ namespace MiniJson
                 {
                     if (dic.ContainsKey(pro.Name))
                     {
-                        object val = Convert.ChangeType(dic[pro.Name], pro.PropertyType);
+                        object val;
+                        if (dic[pro.Name]==null && pro.PropertyType.IsValueType)
+                        {
+                            val = null;
+                        }
+                        else
+                        {
+                            val = Convert.ChangeType(dic[pro.Name], pro.PropertyType);
+                        }
                         pro.SetValue(model, val,null);
                     }
                 }
